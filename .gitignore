@@ -1,0 +1,6 @@
+rest-api/node_modules
+rest-api/.env
+rest-api/*.rest
+
+front-edn/node_modules
+front-edn/.env.local

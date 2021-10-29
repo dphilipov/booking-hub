@@ -13,13 +13,18 @@ const data = [
 
 // Get all bookings, paginated
 router.get('/bookings', (req, res) => {
-    const pageIndex = req.query.pageIndex;
-    const pageSize = req.query.pageSize;
+    const pageIndex = Number(req.query.pageIndex) || 0;
+    const pageSize = Number(req.query.pageSize) || 5;
 
-    const startIndex = (pageIndex - 1) * pageSize;
-    const endIndex = pageIndex * pageSize;
+    const startIndex = pageIndex * pageSize;
+    const endIndex = startIndex + pageSize;
 
-    const result = data.slice(startIndex, endIndex);
+    const result = {};
+
+    //TO DO: add validation cheks
+    
+    result.totalCount = data.length;
+    result.list = data.slice(startIndex, endIndex);
 
     res.json(result);
 });

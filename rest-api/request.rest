@@ -1,1 +1,0 @@
-GET http://localhost:3500/bookings?pageIndex=1&pageSize=3

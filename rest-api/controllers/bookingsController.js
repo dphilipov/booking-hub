@@ -1,4 +1,6 @@
 const paginatedResults = require('../middlewares/paginatedResults');
+const getOne = require('../middlewares/getOne');
+const deleteOne = require('../middlewares/deleteOne');
 const Booking = require('../models/bookingModel');
 const { Router } = require('express');
 const router = Router();
@@ -6,6 +8,11 @@ const router = Router();
 // Get all bookings, paginated
 router.get('/bookings', paginatedResults(Booking), (req, res) => {
     res.json(res.paginatedResult);
+});
+
+// Get one bookings by ID
+router.get('/bookings/:id', getOne, (req, res) => {
+    res.json(res.booking);
 });
 
 // Create a new bookings
@@ -31,7 +38,11 @@ router.post('/bookings/create', async (req, res) => {
 });
 
 // Delete a booking
-
+router.delete('/bookings/:id', getOne, deleteOne, (req, res) => {
+    res.json({
+        message: 'Booking deleted'
+    })
+});
 
 
 module.exports = router;

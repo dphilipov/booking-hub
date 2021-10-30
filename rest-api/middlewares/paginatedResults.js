@@ -1,5 +1,5 @@
 module.exports = function paginatedResults(model) {
-    return (req, res, next) => {
+    return async (req, res, next) => {
         const pageIndex = Number(req.query.pageIndex) || 0;
         const pageSize = Number(req.query.pageSize) || 5;
 
@@ -10,10 +10,18 @@ module.exports = function paginatedResults(model) {
 
         //TO DO: add validation cheks
 
-        result.totalCount = model.length;
-        result.list = model.slice(startIndex, endIndex);
+        try {
+            result.totalCount = await model.countDocuments().exec();
+            result.list = await model.find().limit(pageSize).skip(startIndex).exec();
 
-        res.paginatedResults = result;
-        next();
+            res.paginatedResult = result;
+
+            next();
+        } catch(err) {
+            res.status(500).json({
+                message: err.message
+            });
+        }
+
     }
 }

@@ -1,23 +1,34 @@
 const paginatedResults = require('../middlewares/paginatedResults');
+const Booking = require('../models/bookingModel');
 const { Router } = require('express');
 const router = Router();
 
-const data = [
-    { id: 1, name: 'User 1' },
-    { id: 2, name: 'User 2' },
-    { id: 3, name: 'User 3' },
-    { id: 4, name: 'User 4' },
-    { id: 5, name: 'User 5' },
-    { id: 6, name: 'User 6' },
-    { id: 7, name: 'User 7' }
-]
-
 // Get all bookings, paginated
-router.get('/bookings', paginatedResults(data), (req, res) => {
-    res.json(res.paginatedResults);
+router.get('/bookings', paginatedResults(Booking), (req, res) => {
+    res.json(res.paginatedResult);
 });
 
 // Create a new bookings
+router.post('/bookings/create', async (req, res) => {
+    const booking = new Booking({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        departureAirportId: req.body.departureAirportId,
+        arrivalAirportId: req.body.arrivalAirportId,
+        departureDate: req.body.departureDate,
+        returnDate: req.body.returnDate,
+    })
+
+    try {
+        const newBooking = await booking.save();
+        res.status(201).json(newBooking);
+    } catch (err) {
+        res.status(400).json({
+            message: err.message
+        });
+    }
+
+});
 
 // Delete a booking
 

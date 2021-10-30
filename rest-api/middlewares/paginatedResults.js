@@ -4,7 +4,6 @@ module.exports = function paginatedResults(model) {
         const pageSize = Number(req.query.pageSize) || 5;
 
         const startIndex = pageIndex * pageSize;
-        const endIndex = startIndex + pageSize;
 
         const result = {};
 

@@ -38,7 +38,7 @@ router.post('/create', async (req, res) => {
 });
 
 // Delete a booking
-router.delete('/:id', getOne, deleteOne, (req, res) => {
+router.delete('/delete/:id', getOne, deleteOne, (req, res) => {
     res.json({
         message: 'Booking deleted'
     })

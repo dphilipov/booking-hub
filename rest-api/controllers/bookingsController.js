@@ -6,17 +6,17 @@ const { Router } = require('express');
 const router = Router();
 
 // Get all bookings, paginated
-router.get('/bookings', paginatedResults(Booking), (req, res) => {
+router.get('/', paginatedResults(Booking), (req, res) => {
     res.json(res.paginatedResult);
 });
 
 // Get one bookings by ID
-router.get('/bookings/:id', getOne, (req, res) => {
+router.get('/:id', getOne, (req, res) => {
     res.json(res.booking);
 });
 
 // Create a new bookings
-router.post('/bookings/create', async (req, res) => {
+router.post('/create', async (req, res) => {
     const booking = new Booking({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -38,7 +38,7 @@ router.post('/bookings/create', async (req, res) => {
 });
 
 // Delete a booking
-router.delete('/bookings/:id', getOne, deleteOne, (req, res) => {
+router.delete('/:id', getOne, deleteOne, (req, res) => {
     res.json({
         message: 'Booking deleted'
     })

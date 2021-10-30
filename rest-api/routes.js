@@ -4,7 +4,7 @@ const router = Router();
 const bookingsController = require('./controllers/bookingsController');
 
 
-router.use('/', bookingsController);
+router.use('/bookings', bookingsController);
 
 
 module.exports = router;

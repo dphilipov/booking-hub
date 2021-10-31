@@ -1,5 +1,6 @@
 import styles from './Form.module.css';
 import useInput from '../../../hooks/useInput';
+import fetchServices from '../../../services/fetchServices';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTicketAlt } from '@fortawesome/free-solid-svg-icons'
@@ -11,7 +12,13 @@ export default function Form() {
     const handleFormSubmit = (e) => {
         e.preventDefault();
 
-        console.log(inputValue);
+        fetchServices.createBooking(inputValue)
+            .then(res => {
+                console.log(res.json());
+            })
+            .catch(err => {
+                console.log(err.message);
+            })
     }
 
     return (
@@ -44,9 +51,9 @@ export default function Form() {
                 value={inputValue.departureAirportId}
                 onChange={handleChange}
             >
-                <option value="test 1">Test 1</option>
-                <option value="test 2">Test 2</option>
-                <option value="test 3">Test 3</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
             </select>
 
             <label htmlFor="arrivalAirportId">ARRIVAL AIRPORT:</label>
@@ -56,9 +63,9 @@ export default function Form() {
                 value={inputValue.arrivalAirportId}
                 onChange={handleChange}
             >
-                <option value="test 1">Test 1</option>
-                <option value="test 2">Test 2</option>
-                <option value="test 3">Test 3</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
             </select>
 
             <label htmlFor="departureDate">DATE OF DEPARTURE:</label>

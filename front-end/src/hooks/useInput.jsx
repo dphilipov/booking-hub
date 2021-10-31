@@ -11,10 +11,17 @@ function useInput() {
     });
 
     const handleChange = (e) => {
-        setInput(prevState => ({
-            ...prevState,
-            [e.target.name]: e.target.value
-        }))
+        if (e.target.name === 'departureAirportId' || e.target.name === 'arrivalAirportId') {
+            setInput(prevState => ({
+                ...prevState,
+                [e.target.name]: Number(e.target.value)
+            }))
+        } else {
+            setInput(prevState => ({
+                ...prevState,
+                [e.target.name]: e.target.value
+            }))
+        }
     }
 
     return [input, handleChange];

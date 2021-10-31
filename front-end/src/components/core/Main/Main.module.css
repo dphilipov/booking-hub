@@ -1,0 +1,16 @@
+.mainWrapper {
+    width: 500px;
+    margin: 0px auto;
+}
+
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    text-align: center;
+    color: #0069FF;
+    font-size: 46px;
+    margin-bottom: 50px;
+}

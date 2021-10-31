@@ -1,5 +1,3 @@
-import React from 'react'
-
 import Form from '../Form/Form';
 import BookingsList from '../BookingsList/BookingsList';
 import styles from './Main.module.css';

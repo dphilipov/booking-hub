@@ -8,7 +8,7 @@ import { faTicketAlt } from '@fortawesome/free-solid-svg-icons'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 
-export default function Form() {
+export default function Form({ airportsList }) {
     const [inputValue, handleChange] = useInput();
     const [isFetching, toggleIsFetching] = useIsFetching();
 
@@ -71,9 +71,11 @@ export default function Form() {
                     value={inputValue.departureAirportId}
                     onChange={handleChange}
                 >
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
+                    {airportsList.map(airport => (
+                        <option key={airport.id} data-key={airport.id} value={`${airport.code}, ${airport.title}`}>
+                            {`${airport.code}, ${airport.title}`}
+                        </option>
+                    ))}
                 </select>
             </div>
 
@@ -87,9 +89,11 @@ export default function Form() {
                     value={inputValue.arrivalAirportId}
                     onChange={handleChange}
                 >
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
+                    {airportsList.map(airport => (
+                        <option key={airport.id} data-key={airport.id} value={`${airport.code}, ${airport.title}`}>
+                            {`${airport.code}, ${airport.title}`}
+                        </option>
+                    ))}
                 </select>
             </div>
 

@@ -17,7 +17,7 @@ export default function Form() {
         toggleIsFetching();
 
         // TO DO: add validation
-        
+
         try {
             const response = await fetchServices.createBooking(inputValue);
             const data = await response.json();
@@ -33,67 +33,91 @@ export default function Form() {
     return (
         <form className={styles.form}>
 
-            <label htmlFor="firstName">FIRST NAME:</label>
-            <input
-                type="text"
-                name="firstName"
-                id="firstName"
-                value={inputValue.firstName}
-                placeholder="Enter your first name here"
-                onChange={handleChange}
-            />
+            <div className={styles.formItem}>
+                <label htmlFor="firstName" className={styles.formItemLabel}
+                >FIRST NAME:</label>
+                <input
+                    className={styles.formItemField}
+                    type="text"
+                    name="firstName"
+                    id="firstName"
+                    value={inputValue.firstName}
+                    placeholder="Enter your first name here"
+                    onChange={handleChange}
+                />
+            </div>
 
-            <label htmlFor="lastName">LAST NAME:</label>
-            <input
-                type="text"
-                name="lastName"
-                id="lastName"
-                value={inputValue.lastName}
-                placeholder="Enter your last name here"
-                onChange={handleChange}
-            />
+            <div className={styles.formItem}>
+                <label htmlFor="lastName" className={styles.formItemLabel}
+                >LAST NAME:</label>
+                <input
+                    className={styles.formItemField}
+                    type="text"
+                    name="lastName"
+                    id="lastName"
+                    value={inputValue.lastName}
+                    placeholder="Enter your last name here"
+                    onChange={handleChange}
+                />
+            </div>
 
-            <label htmlFor="departureAirportId">DEPARTURE AIRPORT:</label>
-            <select
-                name="departureAirportId"
-                id="departureAirportId"
-                value={inputValue.departureAirportId}
-                onChange={handleChange}
-            >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-            </select>
+            <div className={styles.formItem}>
+                <label htmlFor="departureAirportId" className={styles.formItemLabel}
+                >DEPARTURE AIRPORT:</label>
+                <select
+                    className={styles.formItemField}
+                    name="departureAirportId"
+                    id="departureAirportId"
+                    value={inputValue.departureAirportId}
+                    onChange={handleChange}
+                >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
 
-            <label htmlFor="arrivalAirportId">ARRIVAL AIRPORT:</label>
-            <select
-                name="arrivalAirportId"
-                id="arrivalAirportId"
-                value={inputValue.arrivalAirportId}
-                onChange={handleChange}
-            >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-            </select>
+            <div className={styles.formItem}>
+                <label htmlFor="arrivalAirportId" className={styles.formItemLabel}
+                >ARRIVAL AIRPORT:</label>
+                <select
+                    className={styles.formItemField}
+                    name="arrivalAirportId"
+                    id="arrivalAirportId"
+                    value={inputValue.arrivalAirportId}
+                    onChange={handleChange}
+                >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
 
-            <label htmlFor="departureDate">DATE OF DEPARTURE:</label>
-            <input
-                type="date"
-                name="departureDate"
-                id="departureDate"
-                value={inputValue.departureDate}
-                onChange={handleChange}
-            />
+            <div className={styles.formInputDateContainer}>
+                <div className={`${styles.formItem} ${styles.formItemDate}`}>
+                    <label htmlFor="departureDate" className={styles.formItemLabel}>DATE OF DEPARTURE:</label>
+                    <input
+                        className={`${styles.formItemField} ${styles.formItemFieldDate}`}
+                        type="date"
+                        name="departureDate"
+                        id="departureDate"
+                        value={inputValue.departureDate}
+                        onChange={handleChange}
+                    />
+                </div>
 
-            <label htmlFor="returnDate">DATE OF RETURN:</label>
-            <input
-                type="date"
-                name="returnDate"
-                id="returnDate"
-                value={inputValue.returnDate}
-                onChange={handleChange}
-            />
+                <div className={`${styles.formItem} ${styles.formItemDate}`}>
+                    <label htmlFor="returnDate" className={styles.formItemLabel}>DATE OF RETURN:</label>
+                    <input
+                        className={`${styles.formItemField} ${styles.formItemFieldDate}`}
+                        type="date"
+                        name="returnDate"
+                        id="returnDate"
+                        value={inputValue.returnDate}
+                        onChange={handleChange}
+                    />
+                </div>
+            </div>
 
             <button
                 onClick={(e) => handleFormSubmit(e)}

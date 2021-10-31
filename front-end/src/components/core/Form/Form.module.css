@@ -34,3 +34,44 @@
 .ticketAlt {
     margin-left: 10px;
 }
+
+.formItem {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.formItem.formItemDate {
+    flex-direction: column;
+    flex: 1;
+}
+
+.formItemField {
+    border: 1px solid #c3c3c3;
+    border-radius: 4px;
+    padding: 5px 10px;
+    color: #0069FF;
+    flex: 3;
+}
+
+.formItemField.formItemFieldDate {
+    height: 50px;
+    text-align: center;
+    flex: none;
+}
+
+.formItemField:hover {
+    border: 1px solid #0069FF;
+}
+
+.formItemLabel {
+    color: #0069FF;
+    font-weight: 700;
+    flex: 1;
+}
+
+.formInputDateContainer {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 20px;
+}

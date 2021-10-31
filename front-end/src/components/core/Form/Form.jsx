@@ -9,16 +9,18 @@ import { faTicketAlt } from '@fortawesome/free-solid-svg-icons'
 export default function Form() {
     const [inputValue, handleChange] = useInput();
 
-    const handleFormSubmit = (e) => {
+    const handleFormSubmit = async (e) => {
         e.preventDefault();
 
-        fetchServices.createBooking(inputValue)
-            .then(res => {
-                console.log(res.json());
-            })
-            .catch(err => {
-                console.log(err.message);
-            })
+        try {
+            const promise = await fetchServices.createBooking(inputValue);
+            const response = await promise.json();
+
+            console.log(response); // TO DO: add notification
+        } catch (err) {
+            console.log(err);
+        }
+
     }
 
     return (
@@ -89,6 +91,7 @@ export default function Form() {
             <button
                 onClick={(e) => handleFormSubmit(e)}
                 className={styles.createBookingBtn}
+                disabled
             >
                 CREATE BOOKING
                 <FontAwesomeIcon icon={faTicketAlt} className={styles.ticketAlt} />

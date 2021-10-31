@@ -1,26 +1,33 @@
 import styles from './Form.module.css';
 import useInput from '../../../hooks/useInput';
+import useIsFetching from '../../../hooks/useIsFetching';
 import fetchServices from '../../../services/fetchServices';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTicketAlt } from '@fortawesome/free-solid-svg-icons'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function Form() {
     const [inputValue, handleChange] = useInput();
+    const [isFetching, toggleIsFetching] = useIsFetching();
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
+        toggleIsFetching();
 
+        // TO DO: add validation
+        
         try {
-            const promise = await fetchServices.createBooking(inputValue);
-            const response = await promise.json();
+            const response = await fetchServices.createBooking(inputValue);
+            const data = await response.json();
 
-            console.log(response); // TO DO: add notification
+            console.log(data); // TO DO: add notification
         } catch (err) {
             console.log(err);
         }
 
+        toggleIsFetching();
     }
 
     return (
@@ -91,11 +98,14 @@ export default function Form() {
             <button
                 onClick={(e) => handleFormSubmit(e)}
                 className={styles.createBookingBtn}
-                disabled
             >
                 CREATE BOOKING
-                <FontAwesomeIcon icon={faTicketAlt} className={styles.ticketAlt} />
+                {isFetching
+                    ? <FontAwesomeIcon icon={faSpinner} className={styles.ticketAlt} spin />
+                    : <FontAwesomeIcon icon={faTicketAlt} className={styles.ticketAlt} />
+                }
             </button>
+
         </form>
     )
 }

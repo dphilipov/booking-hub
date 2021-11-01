@@ -4,6 +4,10 @@ function getAirports() {
     return fetch(BASE_URL + 'airports');
 }
 
+function getBookings(pageIndex, pageSize) {
+    return fetch(BASE_URL + `bookings?pageIndex=${pageIndex}&pageSize=${pageSize}`);
+}
+
 function createBooking(bookingInfo) {
     const requestOptions = {
         method: 'POST',
@@ -13,10 +17,6 @@ function createBooking(bookingInfo) {
         body: JSON.stringify(bookingInfo)
     };
     return fetch(BASE_URL + `bookings/create`, requestOptions);
-}
-
-function listBookings(pageIndex, pageSize='') {
-    return fetch(BASE_URL + `bookings?pageIndex=${pageIndex}&pageSize=${pageSize}`);
 }
 
 function deleteBooking(bookingId) {
@@ -33,7 +33,7 @@ function deleteBooking(bookingId) {
 const fetchServices = {
     getAirports,
     createBooking,
-    listBookings,
+    getBookings,
     deleteBooking
 }
 

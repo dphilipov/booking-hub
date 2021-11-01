@@ -2,24 +2,20 @@ import { useEffect, useState } from 'react';
 import Form from '../Form/Form';
 import BookingsList from '../BookingsList/BookingsList';
 import styles from './Main.module.css';
-import fetchServices from '../../../services/fetchServices';
+import useFetch from '../../../hooks/useFetch';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlaneDeparture } from '@fortawesome/free-solid-svg-icons'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+
 
 
 function Main() {
     const [airportsList, setAirportsList] = useState([]);
+    const [bookingsList, setBookingsList, isLoading, error] = useFetch();
 
     useEffect(() => {
-        async function getAirports() {
-            const response = await fetchServices.getAirports();
-            const data = await response.json();
-    
-            setAirportsList(data);
-        }
-
-        getAirports();
+        setBookingsList();
     }, [])
 
     return (
@@ -28,7 +24,11 @@ function Main() {
                 <h1 className={styles.logo}>BookingHub <FontAwesomeIcon icon={faPlaneDeparture} /></h1>
 
                 <Form airportsList={airportsList}></Form>
-                <BookingsList></BookingsList>
+                {isLoading
+                    ? <FontAwesomeIcon icon={faSpinner} className={styles.spinner} spin />
+                    : <BookingsList bookingsList={bookingsList} />
+                }
+
             </div>
         </div>
     )

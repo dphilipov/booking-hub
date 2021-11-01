@@ -7,14 +7,17 @@ function useInput() {
         departureAirportId: 1,
         arrivalAirportId: 1,
         departureDate: '',
-        returnDate: ''
+        returnDate: '',
     });
 
     const handleChange = (e) => {
         if (e.target.name === 'departureAirportId' || e.target.name === 'arrivalAirportId') {
+            const selectedIndex = e.target.options.selectedIndex;
+            const inputId = Number(e.target.options[selectedIndex].getAttribute('data-key'));
+    
             setInput(prevState => ({
                 ...prevState,
-                [e.target.name]: Number(e.target.value)
+                [e.target.name]: Number(inputId)
             }))
         } else {
             setInput(prevState => ({

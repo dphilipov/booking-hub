@@ -35,7 +35,6 @@ function Main() {
                 </div>
             </div>
         </AirportsContext.Provider>
-
     )
 }
 

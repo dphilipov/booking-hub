@@ -9,7 +9,7 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function Form({ airportsList }) {
-    const [inputValue, handleChange] = useInput();
+    const [formValue, handleChange] = useInput();
     const [isFetching, toggleIsFetching] = useIsFetching();
 
     const handleFormSubmit = async (e) => {
@@ -19,7 +19,7 @@ export default function Form({ airportsList }) {
         // TO DO: add validation
 
         try {
-            const response = await fetchServices.createBooking(inputValue);
+            const response = await fetchServices.createBooking(formValue);
             const json = await response.json();
 
             if (response.ok) {
@@ -47,7 +47,7 @@ export default function Form({ airportsList }) {
                     type="text"
                     name="firstName"
                     id="firstName"
-                    value={inputValue.firstName}
+                    value={formValue.firstName}
                     placeholder="Enter your first name here"
                     onChange={handleChange}
                 />
@@ -61,7 +61,7 @@ export default function Form({ airportsList }) {
                     type="text"
                     name="lastName"
                     id="lastName"
-                    value={inputValue.lastName}
+                    value={formValue.lastName}
                     placeholder="Enter your last name here"
                     onChange={handleChange}
                 />
@@ -69,12 +69,13 @@ export default function Form({ airportsList }) {
 
             <div className={styles.formItem}>
                 <label htmlFor="departureAirportId" className={styles.formItemLabel}
-                >DEPARTURE AIRPORT:</label>
+                >
+                    DEPARTURE AIRPORT:
+                </label>
                 <select
                     className={styles.formItemField}
                     name="departureAirportId"
                     id="departureAirportId"
-                    value={inputValue.departureAirportId}
                     onChange={handleChange}
                 >
                     {airportsList.map(airport => (
@@ -87,12 +88,13 @@ export default function Form({ airportsList }) {
 
             <div className={styles.formItem}>
                 <label htmlFor="arrivalAirportId" className={styles.formItemLabel}
-                >ARRIVAL AIRPORT:</label>
+                >
+                    ARRIVAL AIRPORT:
+                </label>
                 <select
                     className={styles.formItemField}
                     name="arrivalAirportId"
                     id="arrivalAirportId"
-                    value={inputValue.arrivalAirportId}
                     onChange={handleChange}
                 >
                     {airportsList.map(airport => (
@@ -111,7 +113,7 @@ export default function Form({ airportsList }) {
                         type="date"
                         name="departureDate"
                         id="departureDate"
-                        value={inputValue.departureDate}
+                        value={formValue.departureDate}
                         onChange={handleChange}
                     />
                 </div>
@@ -123,7 +125,7 @@ export default function Form({ airportsList }) {
                         type="date"
                         name="returnDate"
                         id="returnDate"
-                        value={inputValue.returnDate}
+                        value={formValue.returnDate}
                         onChange={handleChange}
                     />
                 </div>

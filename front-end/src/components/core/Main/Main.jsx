@@ -21,18 +21,21 @@ function Main() {
     }, [setBookingsList, setAirportsList])
 
     return (
-        <div className={styles.mainWrapper}>
-            <div className={styles.mainContainer}>
-                <h1 className={styles.logo}>BookingHub <FontAwesomeIcon icon={faPlaneDeparture} /></h1>
+        <AirportsContext.Provider value={airportsList}>
+            <div className={styles.mainWrapper}>
+                <div className={styles.mainContainer}>
+                    <h1 className={styles.logo}>BookingHub <FontAwesomeIcon icon={faPlaneDeparture} /></h1>
 
-                <Form airportsList={airportsList}></Form>
-                {isLoading
-                    ? <FontAwesomeIcon icon={faSpinner} className={styles.spinner} spin />
-                    : <BookingsList bookingsList={bookingsList} />
-                }
+                    <Form airportsList={airportsList}></Form>
+                    {isLoading
+                        ? <FontAwesomeIcon icon={faSpinner} className={styles.spinner} spin />
+                        : <BookingsList bookingsList={bookingsList} />
+                    }
 
+                </div>
             </div>
-        </div>
+        </AirportsContext.Provider>
+
     )
 }
 

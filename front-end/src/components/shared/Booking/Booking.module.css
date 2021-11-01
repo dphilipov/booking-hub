@@ -1,0 +1,61 @@
+.bookingListItem {
+    border: 1px solid #c3c3c3;
+    border-radius: 4px;
+    list-style: none;
+    margin-bottom: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+}
+
+.passangerNames {
+    text-transform: uppercase;
+    margin-top: 0;
+    font-size: 24px;
+    text-align: center;
+}
+
+.hint {
+    font-style: italic;
+    color: #c3c3c3;
+    font-size: 14px;
+    font-weight: 100;
+    margin-bottom: 5px;
+}
+
+.flightDetailsContainer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.departureDetailsContainer, .arrivalDetailsContainer {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-weight: 700;
+}
+
+.airportCode {
+    font-size: 22px;
+    background-color: #0069FF;
+    border-radius: 4px;
+    color: #fff;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+.chevronRight {
+    font-size: 30px;
+}
+
+.deleteBookingBtn {
+    align-self: flex-end;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.deleteBookingBtn:hover {
+    color: #CE1E13;
+}

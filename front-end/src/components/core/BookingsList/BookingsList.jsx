@@ -1,10 +1,19 @@
-import React from 'react'
+import styles from './BookingsList.module.css';
 
-function BookingsList() {
+import Booking from '../../shared/Booking/Booking';
+
+function BookingsList({bookingsList}) {
+
+    const deleteBookingHandler = () => {
+
+    }
+
     return (
-        <div>
-            BookingsList
-        </div>
+        <ul className={styles.bookingsList}>
+            {bookingsList.map(booking =>
+                <Booking key={booking.id} bookingInfo={booking} deleteBookingHandler={deleteBookingHandler} />
+            )}
+        </ul>
     )
 }
 

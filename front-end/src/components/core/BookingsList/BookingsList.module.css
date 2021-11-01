@@ -1,0 +1,14 @@
+.bookingsList {
+    margin: 0 0 50px 0;
+    padding: 0;
+}
+
+.loading, .noBookings, .noMoreBookings {
+    text-align: center;
+    display: block;
+    color: #0069FF;
+}
+
+.noMoreBookings {
+    margin-bottom: 40px;
+}

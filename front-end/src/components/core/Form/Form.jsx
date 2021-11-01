@@ -9,7 +9,7 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function Form({ airportsList }) {
-    const [formValue, handleChange] = useInput();
+    const [formValue, airportsNames, handleChange, changeAirportsNames, clearInputs] = useInput();
     const [isFetching, toggleIsFetching] = useIsFetching();
 
     const handleFormSubmit = async (e) => {
@@ -24,6 +24,7 @@ export default function Form({ airportsList }) {
 
             if (response.ok) {
                 console.log(json); // TO DO: add notification
+                clearInputs();
             } else {
                 Promise.reject(json);
             }
@@ -49,6 +50,7 @@ export default function Form({ airportsList }) {
                     id="firstName"
                     value={formValue.firstName}
                     placeholder="Enter your first name here"
+                    autoFocus
                     onChange={handleChange}
                 />
             </div>
@@ -68,18 +70,22 @@ export default function Form({ airportsList }) {
             </div>
 
             <div className={styles.formItem}>
-                <label htmlFor="departureAirportId" className={styles.formItemLabel}
+                <label htmlFor="departureAirport" className={styles.formItemLabel}
                 >
                     DEPARTURE AIRPORT:
                 </label>
                 <select
                     className={styles.formItemField}
                     name="departureAirportId"
-                    id="departureAirportId"
-                    onChange={handleChange}
+                    id="departureAirport"
+                    value={airportsNames.departureAirport}
+                    onChange={(e) => {
+                        handleChange(e);
+                        changeAirportsNames(e);
+                    }}
                 >
                     {airportsList.map(airport => (
-                        <option key={airport.id} data-key={airport.id} value={`${airport.code}, ${airport.title}`}>
+                        <option key={airport.id} data-id={airport.id} value={`${airport.code}, ${airport.title}`}>
                             {`${airport.code}, ${airport.title}`}
                         </option>
                     ))}
@@ -87,20 +93,24 @@ export default function Form({ airportsList }) {
             </div>
 
             <div className={styles.formItem}>
-                <label htmlFor="arrivalAirportId" className={styles.formItemLabel}
+                <label htmlFor="arrivalAirport" className={styles.formItemLabel}
                 >
                     ARRIVAL AIRPORT:
                 </label>
                 <select
                     className={styles.formItemField}
                     name="arrivalAirportId"
-                    id="arrivalAirportId"
-                    onChange={handleChange}
+                    id="arrivalAirport"
+                    value={airportsNames.arrivalAirport}
+                    onChange={(e) => {
+                        handleChange(e);
+                        changeAirportsNames(e);
+                    }}
                 >
                     {airportsList.map(airport => (
-                        <option key={airport.id} data-key={airport.id} value={`${airport.code}, ${airport.title}`}>
-                            {`${airport.code}, ${airport.title}`}
-                        </option>
+                        <option key={airport.id} data-id={airport.id} value={`${airport.code}, ${airport.title}`}>
+                        {`${airport.code}, ${airport.title}`}
+                    </option>
                     ))}
                 </select>
             </div>

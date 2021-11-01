@@ -22,7 +22,7 @@ function Booking({ bookingInfo }) {
         setCurrentDepartureAirport(currentDepartureAirport);
         setCurrentDestinationAirport(currentDestinationAirport);
         
-    }, [airportsList, bookingInfo.departureAirportId, bookingInfo.arrivalAirportId])
+    }, [airportsList, bookingInfo])
 
 
 

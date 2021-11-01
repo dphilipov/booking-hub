@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import fetchServices from '../services/fetchServices';
 
 function useFetch() {
@@ -6,37 +6,41 @@ function useFetch() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const fetchData = async (pageIndex = 0, pageSize = 5) => {
+    const fetchData = useCallback(async (collection, pageIndex = 0, pageSize = 5) => {
         setIsLoading(true);
 
         try {
-            const response = await fetchServices.getBookings(pageIndex, pageSize);
-            const data = await response.json();
+            if (collection === 'airports') {
+                const response = await fetchServices.getAirports();
 
-            setData(data.list);
+                const json = await response.json();
+    
+                if (response.ok) {
+                    setData(json);
+                } else {
+                    Promise.reject(json);
+                }
+    
+            } else if (collection === 'bookings') {
+                const response = await fetchServices.getBookings(pageIndex, pageSize);
+
+                const json = await response.json();
+    
+                if (response.ok) {
+                    setData(json.list);
+                } else {
+                    Promise.reject(json);
+                }
+    
+            }
+
         } catch (err) {
             setError(err);
         } finally {
             setIsLoading(false);
         }
 
-    }
-
-    // const fetchMethod = async () => {
-    //     console.log('test');
-    //     try {
-    //         const response = await apiFunction();
-
-    //         const data = await response.json();
-
-    //         setData(data);
-    //     } catch (err) {
-    //         setError(err);
-    //     } finally {
-    //         setIsLoading(false);
-    //     }
-    // }
-
+    }, []);
 
     return [data, fetchData, isLoading, error];
 

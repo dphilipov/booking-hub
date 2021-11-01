@@ -20,14 +20,20 @@ export default function Form({ airportsList }) {
 
         try {
             const response = await fetchServices.createBooking(inputValue);
-            const data = await response.json();
+            const json = await response.json();
 
-            console.log(data); // TO DO: add notification
+            if (response.ok) {
+                console.log(json); // TO DO: add notification
+            } else {
+                Promise.reject(json);
+            }
+
         } catch (err) {
             console.log(err);
+        } finally {
+            toggleIsFetching();
         }
 
-        toggleIsFetching();
     }
 
     return (

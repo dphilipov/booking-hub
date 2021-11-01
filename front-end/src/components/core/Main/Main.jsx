@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Form from '../Form/Form';
 import BookingsList from '../BookingsList/BookingsList';
 import styles from './Main.module.css';
@@ -8,15 +8,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlaneDeparture } from '@fortawesome/free-solid-svg-icons'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
-
+export const AirportsContext = React.createContext();
 
 function Main() {
-    const [airportsList, setAirportsList] = useState([]);
+    const [airportsList, setAirportsList] = useFetch();
     const [bookingsList, setBookingsList, isLoading, error] = useFetch();
 
     useEffect(() => {
-        setBookingsList();
-    }, [])
+        setBookingsList('bookings');
+
+        setAirportsList('airports');
+    }, [setBookingsList, setAirportsList])
 
     return (
         <div className={styles.mainWrapper}>

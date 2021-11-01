@@ -10,8 +10,8 @@ function BookingsList({bookingsList}) {
 
     return (
         <ul className={styles.bookingsList}>
-            {bookingsList.map(booking =>
-                <Booking key={booking.id} bookingInfo={booking} deleteBookingHandler={deleteBookingHandler} />
+            {bookingsList.map(bookingInfo =>
+                <Booking key={bookingInfo._id} bookingInfo={bookingInfo} deleteBookingHandler={deleteBookingHandler} />
             )}
         </ul>
     )

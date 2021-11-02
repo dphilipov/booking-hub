@@ -1,8 +1,14 @@
-import styles from './Form.module.css';
-import useInput from '../../../hooks/useInput';
-import fetchServices from '../../../services/fetchServices';
+// React, Hooks
 import { useState } from 'react';
+import useInput from '../../../hooks/useInput';
 
+// Services
+import fetchServices from '../../../services/fetchServices';
+
+// CSS
+import styles from './Form.module.css';
+
+// FontAwesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTicketAlt } from '@fortawesome/free-solid-svg-icons'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'

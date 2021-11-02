@@ -1,4 +1,7 @@
+// React, Hooks
 import { useState, useCallback } from 'react';
+
+// Services
 import fetchServices from '../services/fetchServices';
 
 function useFetch() {

@@ -1,7 +1,13 @@
-import styles from './Booking.module.css';
+// React, Hooks
 import { useContext, useEffect, useState } from 'react';
+
+// Context
 import { AirportsContext } from '../../core/Main/Main';
 
+// CSS
+import styles from './Booking.module.css';
+
+// FontAwesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 

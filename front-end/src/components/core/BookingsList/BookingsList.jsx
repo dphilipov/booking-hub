@@ -1,5 +1,7 @@
+//CSS
 import styles from './BookingsList.module.css';
 
+// Components
 import Booking from '../../shared/Booking/Booking';
 
 function BookingsList({bookingsList}) {

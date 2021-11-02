@@ -1,9 +1,15 @@
+// React, Hooks
 import React, { useEffect } from 'react';
-import Form from '../Form/Form';
-import BookingsList from '../BookingsList/BookingsList';
-import styles from './Main.module.css';
 import useFetch from '../../../hooks/useFetch';
 
+// Components
+import Form from '../Form/Form';
+import BookingsList from '../BookingsList/BookingsList';
+
+// CSS
+import styles from './Main.module.css';
+
+// FontAwesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlaneDeparture } from '@fortawesome/free-solid-svg-icons'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'

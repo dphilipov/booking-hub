@@ -1,7 +1,7 @@
 import styles from './Form.module.css';
 import useInput from '../../../hooks/useInput';
-import useIsFetching from '../../../hooks/useIsFetching';
 import fetchServices from '../../../services/fetchServices';
+import { useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTicketAlt } from '@fortawesome/free-solid-svg-icons'
@@ -9,12 +9,12 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function Form({ airportsList, onRefetch }) {
-    const [formValue, airportsNames, handleChange, changeAirportsNames, clearInputs] = useInput();
-    const [isFetching, toggleIsFetching] = useIsFetching();
+    const [formValue, airportsNames, handleInputChange, clearInputs] = useInput();
+    const [isFetching, setIsFetching] = useState(false);
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        toggleIsFetching();
+        setIsFetching(true);
 
         // TO DO: add validation
 
@@ -33,7 +33,7 @@ export default function Form({ airportsList, onRefetch }) {
         } catch (err) {
             console.log(err);
         } finally {
-            toggleIsFetching();
+            setIsFetching(false);
         }
 
     }
@@ -52,7 +52,7 @@ export default function Form({ airportsList, onRefetch }) {
                     value={formValue.firstName}
                     placeholder="Enter your first name here"
                     autoFocus
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                 />
             </div>
 
@@ -66,7 +66,7 @@ export default function Form({ airportsList, onRefetch }) {
                     id="lastName"
                     value={formValue.lastName}
                     placeholder="Enter your last name here"
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                 />
             </div>
 
@@ -80,10 +80,7 @@ export default function Form({ airportsList, onRefetch }) {
                     name="departureAirportId"
                     id="departureAirport"
                     value={airportsNames.departureAirport}
-                    onChange={(e) => {
-                        handleChange(e);
-                        changeAirportsNames(e);
-                    }}
+                    onChange={handleInputChange}
                 >
                     {airportsList.map(airport => (
                         <option key={airport.id} data-id={airport.id} value={`${airport.code}, ${airport.title}`}>
@@ -103,10 +100,7 @@ export default function Form({ airportsList, onRefetch }) {
                     name="arrivalAirportId"
                     id="arrivalAirport"
                     value={airportsNames.arrivalAirport}
-                    onChange={(e) => {
-                        handleChange(e);
-                        changeAirportsNames(e);
-                    }}
+                    onChange={handleInputChange}
                 >
                     {airportsList.map(airport => (
                         <option key={airport.id} data-id={airport.id} value={`${airport.code}, ${airport.title}`}>
@@ -125,7 +119,7 @@ export default function Form({ airportsList, onRefetch }) {
                         name="departureDate"
                         id="departureDate"
                         value={formValue.departureDate}
-                        onChange={handleChange}
+                        onChange={handleInputChange}
                     />
                 </div>
 
@@ -137,7 +131,7 @@ export default function Form({ airportsList, onRefetch }) {
                         name="returnDate"
                         id="returnDate"
                         value={formValue.returnDate}
-                        onChange={handleChange}
+                        onChange={handleInputChange}
                     />
                 </div>
             </div>

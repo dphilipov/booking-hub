@@ -16,7 +16,7 @@ function useInput() {
     });
 
 
-    const handleChange = (e) => {
+    const handleInputChange = (e) => {
         if (e.target.nodeName === 'SELECT') {
             const selectedIndex = e.target.options.selectedIndex;
             const inputId = Number(e.target.options[selectedIndex].getAttribute('data-id'));
@@ -25,19 +25,17 @@ function useInput() {
                 ...prevState,
                 [e.target.name]: inputId
             }))
+
+            setAirportsNames(prevState => ({
+                ...prevState,
+                [e.target.id]: e.target.value
+            }));
         } else {
             setInput(prevState => ({
                 ...prevState,
                 [e.target.name]: e.target.value
             }))
         }
-    }
-
-    const changeAirportsNames = (e) => {
-        setAirportsNames(prevState => ({
-            ...prevState,
-            [e.target.id]: e.target.value
-        }));
     }
 
     const clearInputs = () => {
@@ -56,7 +54,7 @@ function useInput() {
         });
     }
 
-    return [input, airportsNames, handleChange, changeAirportsNames, clearInputs];
+    return [input, airportsNames, handleInputChange, clearInputs];
 }
 
 export default useInput

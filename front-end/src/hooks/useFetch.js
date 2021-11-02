@@ -6,32 +6,51 @@ function useFetch() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const fetchData = useCallback(async (collection, pageIndex = 0, pageSize = 5) => {
+    const fetchDataFromCollection = async (collection, pageIndex, pageSize) => {
+        let response;
+        let json;
+
+        switch (collection) {
+            case 'airports':
+                response = await fetchServices.getAirports();
+                break;
+
+            case 'bookings':
+                response = await fetchServices.getBookings(pageIndex, pageSize);
+                break;
+
+            default:
+                break;
+        }
+
+
+        if (response.ok) {
+            const json = await response.json();
+
+            return json;
+        } else {
+            Promise.reject(json);
+        }
+
+    }
+
+    const setFetchedData = useCallback(async (collection, pageIndex = 0, pageSize = 5) => {
         setIsLoading(true);
 
         try {
-            if (collection === 'airports') {
-                const response = await fetchServices.getAirports();
+            const json = await fetchDataFromCollection(collection, pageIndex, pageSize);
 
-                const json = await response.json();
-    
-                if (response.ok) {
+            switch (collection) {
+                case 'airports':
                     setData(json);
-                } else {
-                    Promise.reject(json);
-                }
-    
-            } else if (collection === 'bookings') {
-                const response = await fetchServices.getBookings(pageIndex, pageSize);
+                    break;
 
-                const json = await response.json();
-    
-                if (response.ok) {
+                case 'bookings':
                     setData(json.list);
-                } else {
-                    Promise.reject(json);
-                }
-    
+                    break;
+
+                default:
+                    break;
             }
 
         } catch (err) {
@@ -42,7 +61,7 @@ function useFetch() {
 
     }, []);
 
-    return [data, fetchData, isLoading, error];
+    return [data, setFetchedData, isLoading, error];
 
 }
 

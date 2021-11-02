@@ -11,18 +11,17 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 export const AirportsContext = React.createContext();
 
 function Main() {
-    const [airportsList, fetchAirportsList] = useFetch();
-    const [bookingsList, fetchBookingsList, isLoading, error] = useFetch();
+    const [airportsList, setAirportsList] = useFetch();
+    const [bookingsList, setBookingsList, isLoading, error] = useFetch();
 
     useEffect(() => {
-        fetchBookingsList('bookings');
-
-        fetchAirportsList('airports');
-    }, [fetchBookingsList, fetchAirportsList])
+        setAirportsList('airports');
+        setBookingsList('bookings');
+    }, [setAirportsList, setBookingsList])
 
     const refetch = () => {
         if (bookingsList.length < 5) {
-            fetchBookingsList('bookings');
+            setBookingsList('bookings');
         }
     }
 
@@ -30,7 +29,9 @@ function Main() {
         <AirportsContext.Provider value={airportsList}>
             <div className={styles.mainWrapper}>
                 <div className={styles.mainContainer}>
-                    <h1 className={styles.logo}>BookingHub <FontAwesomeIcon icon={faPlaneDeparture} /></h1>
+                    <h1 className={styles.logo}>
+                        BookingHub <FontAwesomeIcon icon={faPlaneDeparture} />
+                    </h1>
 
                     <Form airportsList={airportsList} onRefetch={refetch}></Form>
                     {isLoading

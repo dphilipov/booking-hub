@@ -47,7 +47,7 @@ function useFetch(collection, pageIndex = 0) {
         } else {
             setIsEnd(false);
         }
-    }, [data])
+    }, [data, totalCount])
 
 
     return [data, isEnd, isLoading, error];

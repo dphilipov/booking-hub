@@ -1,8 +1,5 @@
 // React, Hooks
-import { useContext, useEffect, useState } from 'react';
-
-// Context
-import { AirportsContext } from '../../core/Main/Main';
+import { useEffect, useState } from 'react';
 
 // CSS
 import styles from './Booking.module.css';

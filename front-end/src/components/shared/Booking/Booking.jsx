@@ -11,8 +11,7 @@ import styles from './Booking.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
-function Booking({ bookingInfo }) {
-    const airportsList = useContext(AirportsContext);
+function Booking({ bookingInfo, airportsList }) {
     const [currentDepartureAirport, setCurrentDepartureAirport] = useState({});
     const [currentDestinationAirport, setCurrentDestinationAirport] = useState({});
 

@@ -1,70 +1,56 @@
 // React, Hooks
-import { useState, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 
 // Services
 import fetchServices from '../services/fetchServices';
 
-function useFetch() {
+function useFetch(collection, pageIndex = 0) {
     const [data, setData] = useState([]);
+    const [totalCount, setTotalCount] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [isEnd, setIsEnd] = useState(false);
 
-    const fetchDataFromCollection = async (collection, pageIndex, pageSize) => {
-        let response;
-        let json;
+    useEffect(() => {
+        const setFetchedData = async (collection, pageIndex) => {
+            setIsLoading(true);
 
-        switch (collection) {
-            case 'airports':
-                response = await fetchServices.getAirports();
-                break;
+            try {
+                const json = await fetchServices.getData(collection, pageIndex);
 
-            case 'bookings':
-                response = await fetchServices.getBookings(pageIndex, pageSize);
-                break;
+                switch (collection) {
+                    case 'airports':
+                        setData(json);
+                        break;
 
-            default:
-                break;
-        }
+                    case 'bookings':
+                        setTotalCount(json.totalCount);
+                        setData(prevState => [...prevState, ...json.list]);
+                        break;
 
-
-        if (response.ok) {
-            const json = await response.json();
-
-            return json;
-        } else {
-            Promise.reject(json);
-        }
-
-    }
-
-    const setFetchedData = useCallback(async (collection, pageIndex = 0, pageSize = 5) => {
-        setIsLoading(true);
-
-        try {
-            const json = await fetchDataFromCollection(collection, pageIndex, pageSize);
-
-            switch (collection) {
-                case 'airports':
-                    setData(json);
-                    break;
-
-                case 'bookings':
-                    setData(json.list);
-                    break;
-
-                default:
-                    break;
+                    default:
+                        break;
+                }
+            } catch (err) {
+                setError(err);
+            } finally {
+                setIsLoading(false);
             }
+        };
 
-        } catch (err) {
-            setError(err);
-        } finally {
-            setIsLoading(false);
+        setFetchedData(collection, pageIndex);
+    }, [collection, pageIndex])
+
+    useEffect(() => {
+        if (data.length === totalCount) {
+            setIsEnd(true);
+        } else {
+            setIsEnd(false);
         }
+    }, [data])
 
-    }, []);
 
-    return [data, setFetchedData, isLoading, error];
+    return [data, isEnd, isLoading, error];
 
 }
 

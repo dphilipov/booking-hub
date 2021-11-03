@@ -1,10 +1,11 @@
 // React, Hooks
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import useFetch from '../../../hooks/useFetch';
 
 // Components
 import Form from '../Form/Form';
 import BookingsList from '../BookingsList/BookingsList';
+import Booking from '../../shared/Booking/Booking';
 
 // CSS
 import styles from './Main.module.css';
@@ -17,18 +18,18 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 export const AirportsContext = React.createContext();
 
 function Main() {
-    const [airportsList, setAirportsList] = useFetch();
-    const [bookingsList, setBookingsList, isLoading, error] = useFetch();
-
-    useEffect(() => {
-        setAirportsList('airports');
-        setBookingsList('bookings');
-    }, [setAirportsList, setBookingsList])
+    const [airportsList] = useFetch('airports');
+    const [bookingsList, isEnd, isLoading, error] = useFetch('bookings');
+    // const [pageIndex, setPageIndex] = useState(0);
 
     const refetch = () => {
         if (bookingsList.length < 5) {
-            setBookingsList('bookings');
+            // fetchBookingsList('bookings');
         }
+    }
+
+    const changePage = () => {
+        // setPageIndex(prevPage => prevPage + 1);
     }
 
     return (
@@ -40,10 +41,13 @@ function Main() {
                     </h1>
 
                     <Form airportsList={airportsList} onRefetch={refetch}></Form>
-                    {isLoading
-                        ? <FontAwesomeIcon icon={faSpinner} className={styles.spinner} spin />
-                        : <BookingsList bookingsList={bookingsList} />
-                    }
+                    <BookingsList changePage={changePage} isEnd={isEnd}>
+                        {bookingsList.map(bookingInfo =>
+                            <Booking key={bookingInfo._id} bookingInfo={bookingInfo} airportsList={airportsList}/>
+                        )}
+                    </BookingsList>
+
+                    {isLoading && <FontAwesomeIcon icon={faSpinner} className={styles.spinner} spin />}
 
                 </div>
             </div>

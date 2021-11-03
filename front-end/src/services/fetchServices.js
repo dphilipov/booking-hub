@@ -1,11 +1,18 @@
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-function getAirports() {
-    return fetch(BASE_URL + 'airports');
-}
-
-function getBookings(pageIndex, pageSize) {
-    return fetch(BASE_URL + `bookings?pageIndex=${pageIndex}&pageSize=${pageSize}`);
+async function getData(collection, pageIndex) {
+    try {
+        const response = await fetch(BASE_URL + `${collection}${collection === 'bookings' ? `?pageIndex=${pageIndex}` : ''}`);
+        let json;
+        if (response.ok) {
+            json = await response.json();
+            return json;
+        } else {
+            Promise.reject('This collection does not exist');
+        }
+    } catch (err) {
+        return err;
+    }
 }
 
 function createBooking(bookingInfo) {
@@ -31,9 +38,8 @@ function deleteBooking(bookingId) {
 
 
 const fetchServices = {
-    getAirports,
+    getData,
     createBooking,
-    getBookings,
     deleteBooking
 }
 

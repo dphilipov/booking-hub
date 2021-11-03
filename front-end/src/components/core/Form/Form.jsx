@@ -49,7 +49,9 @@ export default function Form({ airportsList, onRefetch }) {
 
             <div className={styles.formItem}>
                 <label htmlFor="firstName" className={styles.formItemLabel}
-                >FIRST NAME:</label>
+                >
+                    FIRST NAME:
+                </label>
                 <input
                     className={styles.formItemField}
                     type="text"
@@ -64,7 +66,9 @@ export default function Form({ airportsList, onRefetch }) {
 
             <div className={styles.formItem}>
                 <label htmlFor="lastName" className={styles.formItemLabel}
-                >LAST NAME:</label>
+                >
+                    LAST NAME:
+                </label>
                 <input
                     className={styles.formItemField}
                     type="text"
@@ -110,15 +114,17 @@ export default function Form({ airportsList, onRefetch }) {
                 >
                     {airportsList.map(airport => (
                         <option key={airport.id} data-id={airport.id} value={`${airport.code}, ${airport.title}`}>
-                        {`${airport.code}, ${airport.title}`}
-                    </option>
+                            {`${airport.code}, ${airport.title}`}
+                        </option>
                     ))}
                 </select>
             </div>
 
             <div className={styles.formInputDateContainer}>
                 <div className={`${styles.formItem} ${styles.formItemDate}`}>
-                    <label htmlFor="departureDate" className={styles.formItemLabel}>DATE OF DEPARTURE:</label>
+                    <label htmlFor="departureDate" className={styles.formItemLabel}>
+                        DATE OF DEPARTURE:
+                    </label>
                     <input
                         className={`${styles.formItemField} ${styles.formItemFieldDate}`}
                         type="date"
@@ -130,7 +136,9 @@ export default function Form({ airportsList, onRefetch }) {
                 </div>
 
                 <div className={`${styles.formItem} ${styles.formItemDate}`}>
-                    <label htmlFor="returnDate" className={styles.formItemLabel}>DATE OF RETURN:</label>
+                    <label htmlFor="returnDate" className={styles.formItemLabel}>
+                        DATE OF RETURN:
+                    </label>
                     <input
                         className={`${styles.formItemField} ${styles.formItemFieldDate}`}
                         type="date"

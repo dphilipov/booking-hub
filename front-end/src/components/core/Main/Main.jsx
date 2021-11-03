@@ -1,5 +1,5 @@
 // React, Hooks
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useFetch from '../../../hooks/useFetch';
 
 // Components
@@ -14,8 +14,6 @@ import styles from './Main.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlaneDeparture } from '@fortawesome/free-solid-svg-icons'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-
-export const AirportsContext = React.createContext();
 
 function Main() {
     const [airportsList] = useFetch('airports');
@@ -33,25 +31,23 @@ function Main() {
     }
 
     return (
-        <AirportsContext.Provider value={airportsList}>
-            <div className={styles.mainWrapper}>
-                <div className={styles.mainContainer}>
-                    <h1 className={styles.logo}>
-                        BookingHub <FontAwesomeIcon icon={faPlaneDeparture} />
-                    </h1>
+        <div className={styles.mainWrapper}>
+            <div className={styles.mainContainer}>
+                <h1 className={styles.logo}>
+                    BookingHub <FontAwesomeIcon icon={faPlaneDeparture} />
+                </h1>
 
-                    <Form airportsList={airportsList} onRefetch={refetch}></Form>
-                    <BookingsList changePage={changePage} isEnd={isEnd}>
-                        {bookingsList.map(bookingInfo =>
-                            <Booking key={bookingInfo._id} bookingInfo={bookingInfo} airportsList={airportsList}/>
-                        )}
-                    </BookingsList>
+                <Form airportsList={airportsList} onRefetch={refetch}></Form>
+                <BookingsList changePage={changePage} isEnd={isEnd}>
+                    {bookingsList.map(bookingInfo =>
+                        <Booking key={bookingInfo._id} bookingInfo={bookingInfo} airportsList={airportsList} />
+                    )}
+                </BookingsList>
 
-                    {isLoading && <FontAwesomeIcon icon={faSpinner} className={styles.spinner} spin />}
+                {isLoading && <FontAwesomeIcon icon={faSpinner} className={styles.spinner} spin />}
 
-                </div>
             </div>
-        </AirportsContext.Provider>
+        </div>
     )
 }
 

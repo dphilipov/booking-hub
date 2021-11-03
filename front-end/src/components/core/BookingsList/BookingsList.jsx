@@ -10,7 +10,6 @@ function BookingsList({ children, changePage, isEnd }) {
 
             {!isEnd && <button onClick={changePage}>FETCH MORE</button>} */}
             {children}
-            {!isEnd && <button onClick={changePage}>FETCH MORE</button>}
         </ul>
 
     )

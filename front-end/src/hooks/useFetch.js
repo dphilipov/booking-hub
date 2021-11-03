@@ -25,7 +25,11 @@ function useFetch(collection, pageIndex = 0) {
 
                     case 'bookings':
                         setTotalCount(json.totalCount);
-                        setData(prevState => [...prevState, ...json.list]);
+                        if (json.totalCount <= 5) {
+                            setData(json.list);
+                        } else {
+                            setData(prevState => [...prevState, ...json.list]);
+                        }
                         break;
 
                     default:
@@ -42,11 +46,7 @@ function useFetch(collection, pageIndex = 0) {
     }, [collection, pageIndex])
 
     useEffect(() => {
-        if (data.length === totalCount) {
-            setIsEnd(true);
-        } else {
-            setIsEnd(false);
-        }
+        setIsEnd(data.length === totalCount);
     }, [data, totalCount])
 
 

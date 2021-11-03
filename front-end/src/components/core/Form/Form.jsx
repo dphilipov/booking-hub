@@ -14,7 +14,7 @@ import { faTicketAlt } from '@fortawesome/free-solid-svg-icons'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 
-export default function Form({ airportsList, onRefetch }) {
+export default function Form({ airportsList, onCreate }) {
     const [formValue, airportsNames, handleInputChange, clearInputs] = useInput();
     const [isFetching, setIsFetching] = useState(false);
 
@@ -31,7 +31,7 @@ export default function Form({ airportsList, onRefetch }) {
             if (response.ok) {
                 console.log(json); // TO DO: add notification
                 clearInputs();
-                onRefetch();
+                onCreate();
             } else {
                 Promise.reject(json);
             }

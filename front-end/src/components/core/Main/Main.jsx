@@ -56,7 +56,7 @@ function Main() {
                                 <Booking key={bookingInfo._id} bookingNumber={index + 1} bookingInfo={bookingInfo} airportsList={airportsList} />
                             )}
                         </BookingsList>
-                        <button ref={triggerShowMoreOnScrollElement}>SHOW MORE</button>
+                        <div ref={triggerShowMoreOnScrollElement}></div>
 
                         {isLoading && <FontAwesomeIcon icon={faSpinner} className={styles.spinner} spin />}
 

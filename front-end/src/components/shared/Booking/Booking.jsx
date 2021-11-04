@@ -8,7 +8,7 @@ import styles from './Booking.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
-function Booking({ bookingInfo, airportsList }) {
+function Booking({ bookingNumber, bookingInfo, airportsList }) {
     const [currentDepartureAirport, setCurrentDepartureAirport] = useState({});
     const [currentDestinationAirport, setCurrentDestinationAirport] = useState({});
 
@@ -23,7 +23,7 @@ function Booking({ bookingInfo, airportsList }) {
 
         setCurrentDepartureAirport(currentDepartureAirport);
         setCurrentDestinationAirport(currentDestinationAirport);
-        
+
     }, [airportsList, bookingInfo])
 
 
@@ -31,11 +31,16 @@ function Booking({ bookingInfo, airportsList }) {
     return (
         <>
             <div key={bookingInfo.id} className={styles.bookingListItem}>
-                <FontAwesomeIcon
-                    icon={faTimesCircle}
-                    className={styles.deleteBookingBtn}
-                    onClick={(e) => deleteBooking(e)}
-                />
+                <div className={styles.topInfo}>
+                    <span className={styles.bookingNumber}>
+                        Booking #{bookingNumber}
+                    </span>
+                    <FontAwesomeIcon
+                        icon={faTimesCircle}
+                        className={styles.deleteBookingBtn}
+                        onClick={(e) => deleteBooking(e)}
+                    />
+                </div>
 
                 <h3 className={styles.passangerNames}>{bookingInfo.firstName} {bookingInfo.lastName}</h3>
                 <div className={styles.flightDetailsContainer}>

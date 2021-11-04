@@ -76,6 +76,10 @@
     column-gap: 20px;
 }
 
+.viewBookingsBtnLink {
+    align-self: flex-end;
+}
+
 .viewBookingsBtn {
     background-color: #F9FAFE;
     padding: 5px 10px;
@@ -85,7 +89,6 @@
     font-weight: 700;
     font-size: 15px;
     cursor: pointer;
-    align-self: flex-end;
 }
 
 .viewBookingsBtn:hover {

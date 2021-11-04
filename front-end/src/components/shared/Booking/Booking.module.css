@@ -50,8 +50,16 @@
     font-size: 30px;
 }
 
+.topInfo {
+    display: flex;
+    justify-content: space-between;
+}
+
+.bookingNumber {
+    color: #000;
+}
+
 .deleteBookingBtn {
-    align-self: flex-end;
     cursor: pointer;
     font-size: 20px;
 }

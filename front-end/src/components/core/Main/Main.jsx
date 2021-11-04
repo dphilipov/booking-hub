@@ -52,8 +52,8 @@ function Main() {
 
                     <Route path="/bookings-list">
                         <BookingsList isEnd={isEnd}>
-                            {bookingsList.map((bookingInfo) =>
-                                <Booking key={bookingInfo._id} bookingInfo={bookingInfo} airportsList={airportsList} />
+                            {bookingsList.map((bookingInfo, index) =>
+                                <Booking key={bookingInfo._id} bookingNumber={index + 1} bookingInfo={bookingInfo} airportsList={airportsList} />
                             )}
                         </BookingsList>
                         <button ref={triggerShowMoreOnScrollElement}>SHOW MORE</button>

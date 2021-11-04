@@ -166,7 +166,7 @@ export default function Form({ airportsList, onCreate }) {
 
             </form>
 
-            <Link to={`/bookings-list`}>
+            <Link to={`/bookings-list`} className={styles.viewBookingsBtnLink}>
                 <button className={styles.viewBookingsBtn}>
                     VIEW BOOKINGS
                     <FontAwesomeIcon icon={faListOl} className={styles.listOl} />

@@ -12,3 +12,11 @@
 .noMoreBookings {
     margin-bottom: 40px;
 }
+
+.goUpBtn {
+    font-size: 54px;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    cursor: pointer;
+}

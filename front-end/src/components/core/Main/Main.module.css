@@ -1,11 +1,16 @@
 .mainWrapper {
-    width: 500px;
+    width: 600px;
     margin: 0px auto;
 }
 
 .mainContainer {
     display: flex;
     flex-direction: column;
+    border: 1px solid #0069FF;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 40px;
+    border-radius: 5px;
 }
 
 .logo {

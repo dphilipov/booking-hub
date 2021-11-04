@@ -1,6 +1,7 @@
 // React, Hooks
 import { useRef, useState, useCallback } from 'react';
 import useFetch from '../../../hooks/useFetch';
+import { Switch, Route, Link } from 'react-router-dom';
 
 // Components
 import Form from '../Form/Form';
@@ -20,19 +21,13 @@ function Main() {
     const [airportsList] = useFetch('airports');
     const [bookingsList, isEnd, isLoading, error] = useFetch('bookings', pageIndex);
 
-    const onCreate = () => {
-        console.log('refetch');
-    }
-
     const observer = useRef();
     const triggerShowMoreOnScrollElement = useCallback((node) => {
         if (isLoading) return;
         if (observer.current) observer.current.disconnect();
-        
+
         observer.current = new IntersectionObserver(entries => {
             if (entries[0].isIntersecting && !isEnd) {
-                // console.log(entries[0].isIntersecting, isEnd);
-
                 setPageIndex(prevPageIndex => prevPageIndex + 1);
             }
         })
@@ -44,20 +39,31 @@ function Main() {
     return (
         <div className={styles.mainWrapper}>
             <div className={styles.mainContainer}>
-                <h1 className={styles.logo}>
-                    BookingHub <FontAwesomeIcon icon={faPlaneDeparture} />
-                </h1>
+                <Link to="/create-booking">
+                    <h1 className={styles.logo}>
+                        BookingHub <FontAwesomeIcon icon={faPlaneDeparture} />
+                    </h1>
+                </Link>
 
-                <Form airportsList={airportsList} onCreate={onCreate}></Form>
-                <BookingsList isEnd={isEnd}>
-                    {bookingsList.map((bookingInfo) =>
-                        <Booking key={bookingInfo._id} bookingInfo={bookingInfo} airportsList={airportsList} />
-                    )}
-                </BookingsList>
+                <Switch>
+                    <Route path="/create-booking">
+                        <Form airportsList={airportsList}></Form>
+                    </Route>
 
-                {bookingsList.length >= 5 && <button ref={triggerShowMoreOnScrollElement}>SHOW MORE</button>}
+                    <Route path="/bookings-list">
+                        <BookingsList isEnd={isEnd}>
+                            {bookingsList.map((bookingInfo) =>
+                                <Booking key={bookingInfo._id} bookingInfo={bookingInfo} airportsList={airportsList} />
+                            )}
+                        </BookingsList>
+                        <button ref={triggerShowMoreOnScrollElement}>SHOW MORE</button>
 
-                {isLoading && <FontAwesomeIcon icon={faSpinner} className={styles.spinner} spin />}
+                        {isLoading && <FontAwesomeIcon icon={faSpinner} className={styles.spinner} spin />}
+
+                    </Route>
+
+                </Switch>
+
 
             </div>
         </div>

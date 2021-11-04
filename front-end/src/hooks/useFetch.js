@@ -4,50 +4,51 @@ import { useState, useEffect } from 'react';
 // Services
 import fetchServices from '../services/fetchServices';
 
-function useFetch(collection, pageIndex = 0) {
+function useFetch(collection, pageIndex) {
     const [data, setData] = useState([]);
     const [totalCount, setTotalCount] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [isEnd, setIsEnd] = useState(false);
 
-    useEffect(() => {
-        const setFetchedData = async (collection, pageIndex) => {
-            setIsLoading(true);
+    const setFetchedData = async (collection, pageIndex) => {
+        setIsLoading(true);
 
-            try {
-                const json = await fetchServices.getData(collection, pageIndex);
+        try {
+            const json = await fetchServices.getData(collection, pageIndex);
 
-                switch (collection) {
-                    case 'airports':
-                        setData(json);
-                        break;
+            switch (collection) {
+                case 'airports':
+                    setData(json);
+                    break;
 
-                    case 'bookings':
-                        setTotalCount(json.totalCount);
-                        if (json.totalCount <= 5) {
-                            setData(json.list);
-                        } else {
-                            setData(prevState => [...prevState, ...json.list]);
-                        }
-                        break;
+                case 'bookings':
+                    setTotalCount(json.totalCount);
+                    if (json.totalCount <= 5) {
+                        setData(json.list);
+                    } else {
+                        setData(prevState => [...prevState, ...json.list]);
+                    }
+                    break;
 
-                    default:
-                        break;
-                }
-            } catch (err) {
-                setError(err);
-            } finally {
-                setIsLoading(false);
+                default:
+                    break;
             }
-        };
+        } catch (err) {
+            setError(err);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
+    useEffect(() => {
         setFetchedData(collection, pageIndex);
     }, [collection, pageIndex])
 
     useEffect(() => {
         setIsEnd(data.length === totalCount);
     }, [data, totalCount])
+
 
 
     return [data, isEnd, isLoading, error];

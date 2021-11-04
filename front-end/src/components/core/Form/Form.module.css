@@ -1,7 +1,7 @@
 .form {
     display: flex;
     flex-direction: column;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 
 .createBookingBtn {
@@ -31,7 +31,7 @@
     column-gap: 20px;
 }
 
-.ticketAlt {
+.ticketAlt, .listOl{
     margin-left: 10px;
 }
 
@@ -74,4 +74,21 @@
     display: flex;
     justify-content: space-between;
     column-gap: 20px;
+}
+
+.viewBookingsBtn {
+    background-color: #F9FAFE;
+    padding: 5px 10px;
+    border: 1px solid #0069FF;
+    border-radius: 4px;
+    color: #0069FF;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    align-self: flex-end;
+}
+
+.viewBookingsBtn:hover {
+    background-color: #0069FF;
+    color: #F9FAFE;
 }

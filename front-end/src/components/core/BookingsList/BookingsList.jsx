@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowCircleUp } from '@fortawesome/free-solid-svg-icons'
 
 function BookingsList({ children, isEnd }) {
-    const handdleGoUp = () => {
+    const goToTop = () => {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -22,12 +22,12 @@ function BookingsList({ children, isEnd }) {
                 {children}
             </ul>
 
-            <FontAwesomeIcon onClick={handdleGoUp} className={styles.goUpBtn} icon={faArrowCircleUp}></FontAwesomeIcon>
+            <FontAwesomeIcon onClick={goToTop} className={styles.goUpBtn} icon={faArrowCircleUp}></FontAwesomeIcon>
 
             {isEnd &&
-                <Link to="/create-booking">
+                <Link to="/">
                     <button className={styles.createBookingBtn}>
-                        NO MORE BOOKINGS. CREATE A A NEW ONE!
+                        NO MORE BOOKINGS. CREATE A NEW ONE!
                     </button>
                 </Link>
             }

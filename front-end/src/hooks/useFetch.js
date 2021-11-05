@@ -24,11 +24,7 @@ function useFetch(collection, pageIndex) {
 
                 case 'bookings':
                     setTotalCount(json.totalCount);
-                    if (json.totalCount <= 5) {
-                        setData(json.list);
-                    } else {
-                        setData(prevState => [...prevState, ...json.list]);
-                    }
+                    setData(prevState => [...prevState, ...json.list]);
                     break;
 
                 default:

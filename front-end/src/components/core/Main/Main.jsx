@@ -39,14 +39,14 @@ function Main() {
     return (
         <div className={styles.mainWrapper}>
             <div className={styles.mainContainer}>
-                <Link to="/create-booking">
+                <Link to="/">
                     <h1 className={styles.logo}>
                         BookingHub <FontAwesomeIcon icon={faPlaneDeparture} />
                     </h1>
                 </Link>
 
                 <Switch>
-                    <Route path="/create-booking">
+                    <Route exact path="/">
                         <Form airportsList={airportsList}></Form>
                     </Route>
 
@@ -59,7 +59,6 @@ function Main() {
                         <div ref={triggerShowMoreOnScrollElement}></div>
 
                         {isLoading && <FontAwesomeIcon icon={faSpinner} className={styles.spinner} spin />}
-
                     </Route>
 
                 </Switch>

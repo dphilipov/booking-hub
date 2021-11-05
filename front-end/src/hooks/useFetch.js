@@ -47,7 +47,7 @@ function useFetch(collection, pageIndex) {
 
 
 
-    return [data, isEnd, isLoading, error];
+    return { data, isEnd, isLoading, error };
 
 }
 

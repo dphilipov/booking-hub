@@ -17,7 +17,7 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 function BookingsList({ airportsList }) {
     const [pageIndex, setPageIndex] = useState(0);
-    const [bookingsList, isEnd, isLoading, error] = useFetch('bookings', pageIndex);
+    const { data: bookingsList, isEnd, isLoading, error } = useFetch('bookings', pageIndex);
 
     const observer = useRef();
     const triggerShowMoreOnScrollElement = useCallback((node) => {

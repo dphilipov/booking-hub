@@ -14,7 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlaneDeparture } from '@fortawesome/free-solid-svg-icons'
 
 function Main() {
-    const [airportsList] = useFetch('airports');
+    const { data: airportsList } = useFetch('airports');
 
     return (
         <div className={styles.mainWrapper}>
@@ -33,10 +33,7 @@ function Main() {
                     <Route path="/bookings-list">
                         <BookingsList airportsList={airportsList}></BookingsList>
                     </Route>
-
                 </Switch>
-
-
             </div>
         </div>
     )

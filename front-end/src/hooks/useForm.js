@@ -1,8 +1,13 @@
 // React, Hooks
 import { useState } from 'react';
 
-function useInput() {
-    const [input, setInput] = useState({
+// Services
+import fetchServices from '../services/fetchServices';
+
+
+function useForm() {
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [formValue, setFormValue] = useState({
         firstName: '',
         lastName: '',
         departureAirportId: 1,
@@ -18,29 +23,55 @@ function useInput() {
 
 
     const handleInputChange = (e) => {
+        const { name, id, value } = e.target;
+
         if (e.target.nodeName === 'SELECT') {
             const selectedIndex = e.target.options.selectedIndex;
             const inputId = Number(e.target.options[selectedIndex].getAttribute('data-id'));
 
-            setInput(prevState => ({
+            setFormValue(prevState => ({
                 ...prevState,
-                [e.target.name]: inputId
+                [name]: inputId
             }))
 
             setAirportsNames(prevState => ({
                 ...prevState,
-                [e.target.id]: e.target.value
+                [id]: value
             }));
         } else {
-            setInput(prevState => ({
+            setFormValue(prevState => ({
                 ...prevState,
-                [e.target.name]: e.target.value
+                [name]: value
             }))
         }
     }
 
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+
+        // TO DO: add validation
+
+        try {
+            const response = await fetchServices.createBooking(formValue);
+            const json = await response.json();
+
+            if (response.ok) {
+                console.log(json); // TO DO: add notification
+                clearInputs();
+            } else {
+                Promise.reject(json);
+            }
+
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setIsSubmitting(false);
+        }
+    }
+
     const clearInputs = () => {
-        setInput({
+        setFormValue({
             firstName: '',
             lastName: '',
             departureAirportId: 1,
@@ -55,7 +86,7 @@ function useInput() {
         });
     }
 
-    return [input, airportsNames, handleInputChange, clearInputs];
+    return { formValue, airportsNames, handleInputChange, handleFormSubmit, isSubmitting };
 }
 
-export default useInput
+export default useForm

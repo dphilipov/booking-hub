@@ -1,10 +1,6 @@
 // React, Hooks
-import { useState } from 'react';
 import { Link } from 'react-router-dom'
-import useInput from '../../../hooks/useInput';
-
-// Services
-import fetchServices from '../../../services/fetchServices';
+import useForm from '../../../hooks/useForm';
 
 // CSS
 import styles from './Form.module.css';
@@ -16,35 +12,14 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { faListOl } from '@fortawesome/free-solid-svg-icons'
 
 
-export default function Form({ airportsList, onCreate }) {
-    const [formValue, airportsNames, handleInputChange, clearInputs] = useInput();
-    const [isFetching, setIsFetching] = useState(false);
-
-    const handleFormSubmit = async (e) => {
-        e.preventDefault();
-        setIsFetching(true);
-
-        // TO DO: add validation
-
-        try {
-            const response = await fetchServices.createBooking(formValue);
-            const json = await response.json();
-
-            if (response.ok) {
-                console.log(json); // TO DO: add notification
-                clearInputs();
-                onCreate();
-            } else {
-                Promise.reject(json);
-            }
-
-        } catch (err) {
-            console.log(err);
-        } finally {
-            setIsFetching(false);
-        }
-
-    }
+export default function Form({ airportsList }) {
+    const {
+        formValue,
+        airportsNames,
+        handleInputChange,
+        handleFormSubmit,
+        isSubmitting
+    } = useForm();
 
     return (
         <>
@@ -158,7 +133,7 @@ export default function Form({ airportsList, onCreate }) {
                     className={styles.createBookingBtn}
                 >
                     CREATE BOOKING
-                    {isFetching
+                    {isSubmitting
                         ? <FontAwesomeIcon icon={faSpinner} className={styles.ticketAlt} spin />
                         : <FontAwesomeIcon icon={faTicketAlt} className={styles.ticketAlt} />
                     }

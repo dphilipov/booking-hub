@@ -41,3 +41,9 @@
     background-color: #0069FF;
     color: #F9FAFE;
 }
+
+.spinner {
+    font-size: 54px;
+    display: block;
+    margin: 0 auto;
+}

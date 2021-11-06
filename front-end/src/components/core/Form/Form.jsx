@@ -16,6 +16,9 @@ import { faListOl } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function Form({ airportsList }) {
+    const date = new Date();
+    const currentDate = date.toISOString().slice(0, 10);
+
     const {
         formValue,
         airportsNames,
@@ -115,7 +118,7 @@ export default function Form({ airportsList }) {
                             type="date"
                             name="departureDate"
                             id="departureDate"
-                            min=""
+                            min={currentDate}
                             value={formValue.departureDate}
                             onChange={handleInputChange}
                         />
@@ -131,6 +134,7 @@ export default function Form({ airportsList }) {
                             type="date"
                             name="returnDate"
                             id="returnDate"
+                            min={currentDate}
                             value={formValue.returnDate}
                             onChange={handleInputChange}
                         />

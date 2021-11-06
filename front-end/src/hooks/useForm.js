@@ -6,6 +6,9 @@ import fetchServices from '../services/fetchServices';
 
 
 function useForm(validate) {
+    const date = new Date();
+    const currentDate = date.toISOString().slice(0, 10);
+
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formErrors, setFormErrors] = useState(null);
     const [formValue, setFormValue] = useState({
@@ -13,7 +16,7 @@ function useForm(validate) {
         lastName: '',
         departureAirportId: 1,
         arrivalAirportId: 1,
-        departureDate: '',
+        departureDate: currentDate,
         returnDate: '',
     });
     const [airportsNames, setAirportsNames] = useState({
@@ -63,6 +66,7 @@ function useForm(validate) {
             if (response.ok) {
                 console.log(json); // TO DO: add notification
                 clearInputs();
+                setFormErrors(null);
             } else {
                 Promise.reject(json);
             }

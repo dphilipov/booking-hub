@@ -10,18 +10,14 @@ function validate(input) {
     }
 
     if (input.departureAirportId === input.arrivalAirportId) {
-        errors.airportIds = "Departure & arrival airports must be different!";
-    }
-
-    if (input.departureAirportId === input.arrivalAirportId) {
-        errors.airportIds = "Departure & arrival airports must be different!";
+        errors.airportIds = "Departure & arrival airports can't be the same!";
     }
 
     if (!input.departureDate) {
         errors.departureDate = "You must choose a departure date!";
     }
 
-    if (!input.departureDate) {
+    if (!input.returnDate) {
         errors.returnDate = "You must choose a return date!";
     }
 

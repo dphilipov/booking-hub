@@ -4,18 +4,18 @@ import { useState, useEffect } from 'react';
 // Services
 import fetchServices from '../services/fetchServices';
 
-function useFetch(collection, pageIndex) {
+function useFetch(collection, pageIndex, pageSize) {
     const [data, setData] = useState([]);
     const [totalCount, setTotalCount] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [isEnd, setIsEnd] = useState(false);
 
-    const setFetchedData = async (collection, pageIndex) => {
+    const setFetchedData = async (collection, pageIndex, pageSize) => {
         setIsLoading(true);
 
         try {
-            const json = await fetchServices.getData(collection, pageIndex);
+            const json = await fetchServices.getData(collection, pageIndex, pageSize);
 
             switch (collection) {
                 case 'airports':
@@ -24,7 +24,11 @@ function useFetch(collection, pageIndex) {
 
                 case 'bookings':
                     setTotalCount(json.totalCount);
-                    setData(prevState => [...prevState, ...json.list]);
+
+                    pageIndex === 0
+                        ? setData(json.list)
+                        : setData(prevState => [...prevState, ...json.list])
+
                     break;
 
                 default:
@@ -38,11 +42,11 @@ function useFetch(collection, pageIndex) {
     };
 
     useEffect(() => {
-        setFetchedData(collection, pageIndex);
-    }, [collection, pageIndex])
+        setFetchedData(collection, pageIndex, pageSize);
+    }, [collection, pageIndex, pageSize])
 
     useEffect(() => {
-        setIsEnd(data.length === totalCount);
+        setIsEnd(data.length >= totalCount);
     }, [data, totalCount])
 
 

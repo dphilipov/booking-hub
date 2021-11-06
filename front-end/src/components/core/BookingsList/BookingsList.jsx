@@ -6,7 +6,6 @@ import useFetch from '../../../hooks/useFetch';
 // Components
 import Booking from '../../shared/Booking/Booking';
 
-
 //CSS
 import styles from './BookingsList.module.css';
 
@@ -17,7 +16,8 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 function BookingsList({ airportsList }) {
     const [pageIndex, setPageIndex] = useState(0);
-    const { data: bookingsList, isEnd, isLoading, error } = useFetch('bookings', pageIndex);
+    const [pageSize, setPageSize] = useState(5);
+    const { data: bookingsList, isEnd, isLoading, error } = useFetch('bookings', pageIndex, pageSize);
 
     const observer = useRef();
     const triggerShowMoreOnScrollElement = useCallback((node) => {
@@ -40,11 +40,22 @@ function BookingsList({ airportsList }) {
         });
     }
 
+    const onDelete = () => {
+        setPageIndex(prevPageIndex => 0);
+        setPageSize(prevPageSize => bookingsList.length - 1);
+    }
+
     return (
         <>
             <ul className={styles.bookingsList}>
                 {bookingsList.map((bookingInfo, index) =>
-                    <Booking key={bookingInfo._id} bookingNumber={index + 1} bookingInfo={bookingInfo} airportsList={airportsList} />
+                    <Booking
+                        key={bookingInfo._id}
+                        bookingNumber={index + 1}
+                        bookingInfo={bookingInfo}
+                        airportsList={airportsList}
+                        onDelete={onDelete}
+                    />
                 )}
             </ul>
 

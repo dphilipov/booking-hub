@@ -1,6 +1,9 @@
 // React, Hooks
 import { useEffect, useState } from 'react';
 
+// Services
+import fetchServices from '../../../services/fetchServices';
+
 // CSS
 import styles from './Booking.module.css';
 
@@ -8,13 +11,27 @@ import styles from './Booking.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
-function Booking({ bookingNumber, bookingInfo, airportsList }) {
+function Booking({ bookingNumber, bookingInfo, airportsList, onDelete }) {
     const [currentDepartureAirport, setCurrentDepartureAirport] = useState({});
     const [currentDestinationAirport, setCurrentDestinationAirport] = useState({});
 
 
-    const deleteBooking = () => {
+    const deleteBooking = async () => {
+        try {
+            const response = await fetchServices.deleteBooking(bookingInfo._id);
+            let json;
 
+            if (response.ok) {
+                json = await response.json();
+                onDelete();
+                console.log(json); // TO DO: add notification
+            } else {
+                Promise.reject(json);
+            }
+
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     useEffect(() => {

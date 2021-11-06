@@ -1,8 +1,8 @@
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-async function getData(collection, pageIndex) {
+async function getData(collection, pageIndex, pageSize) {
     try {
-        const response = await fetch(BASE_URL + `${collection}${collection === 'bookings' ? `?pageIndex=${pageIndex}` : ''}`);
+        const response = await fetch(BASE_URL + `${collection}${collection === 'bookings' ? `?pageIndex=${pageIndex}&pageSize=${pageSize}` : ''}`);
         let json;
         if (response.ok) {
             json = await response.json();

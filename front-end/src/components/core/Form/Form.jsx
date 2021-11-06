@@ -2,6 +2,9 @@
 import { Link } from 'react-router-dom'
 import useForm from '../../../hooks/useForm';
 
+// Services
+import validate from '../../../services/validationServices';
+
 // CSS
 import styles from './Form.module.css';
 
@@ -18,8 +21,9 @@ export default function Form({ airportsList }) {
         airportsNames,
         handleInputChange,
         handleFormSubmit,
-        isSubmitting
-    } = useForm();
+        isSubmitting,
+        formErrors
+    } = useForm(validate);
 
     return (
         <>
@@ -41,6 +45,7 @@ export default function Form({ airportsList }) {
                         onChange={handleInputChange}
                     />
                 </div>
+                {formErrors?.firstName && <p className={styles.error}>{formErrors.firstName}</p>}
 
                 <div className={styles.formItem}>
                     <label htmlFor="lastName" className={styles.formItemLabel}
@@ -57,6 +62,7 @@ export default function Form({ airportsList }) {
                         onChange={handleInputChange}
                     />
                 </div>
+                {formErrors?.lastName && <p className={styles.error}>{formErrors.lastName}</p>}
 
                 <div className={styles.formItem}>
                     <label htmlFor="departureAirport" className={styles.formItemLabel}
@@ -97,6 +103,7 @@ export default function Form({ airportsList }) {
                         ))}
                     </select>
                 </div>
+                {formErrors?.airportIds && <p className={styles.error}>{formErrors.airportIds}</p>}
 
                 <div className={styles.formInputDateContainer}>
                     <div className={`${styles.formItem} ${styles.formItemDate}`}>
@@ -108,9 +115,11 @@ export default function Form({ airportsList }) {
                             type="date"
                             name="departureDate"
                             id="departureDate"
+                            min=""
                             value={formValue.departureDate}
                             onChange={handleInputChange}
                         />
+                        {formErrors?.departureDate && <p className={styles.error}>{formErrors.departureDate}</p>}
                     </div>
 
                     <div className={`${styles.formItem} ${styles.formItemDate}`}>
@@ -125,6 +134,7 @@ export default function Form({ airportsList }) {
                             value={formValue.returnDate}
                             onChange={handleInputChange}
                         />
+                        {formErrors?.returnDate && <p className={styles.error}>{formErrors.returnDate}</p>}
                     </div>
                 </div>
 

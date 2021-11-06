@@ -5,8 +5,9 @@ import { useState } from 'react';
 import fetchServices from '../services/fetchServices';
 
 
-function useForm() {
+function useForm(validate) {
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [formErrors, setFormErrors] = useState(null);
     const [formValue, setFormValue] = useState({
         firstName: '',
         lastName: '',
@@ -15,7 +16,6 @@ function useForm() {
         departureDate: '',
         returnDate: '',
     });
-
     const [airportsNames, setAirportsNames] = useState({
         departureAirport: 'SOF, Sofia Airport',
         arrivalAirport: 'SOF, Sofia Airport'
@@ -50,7 +50,11 @@ function useForm() {
         e.preventDefault();
         setIsSubmitting(true);
 
-        // TO DO: add validation
+        if (validate(formValue)) {
+            setFormErrors(validate(formValue));
+            setIsSubmitting(false);
+            return;
+        }
 
         try {
             const response = await fetchServices.createBooking(formValue);
@@ -86,7 +90,7 @@ function useForm() {
         });
     }
 
-    return { formValue, airportsNames, handleInputChange, handleFormSubmit, isSubmitting };
+    return { formValue, airportsNames, handleInputChange, handleFormSubmit, isSubmitting, formErrors };
 }
 
 export default useForm

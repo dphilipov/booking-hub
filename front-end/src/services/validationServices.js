@@ -1,5 +1,5 @@
 function validate(input) {
-    const regex = /^([ \u00c0-\u01ffa-zA-Z'-])+$/;
+    const regex = /^([ \u00c0-\u01ff\u0400-\u04ffa-zA-Z'-])+$/;
 
     let errors = {};
 
@@ -20,11 +20,11 @@ function validate(input) {
     }
 
     if (!input.departureDate) {
-        errors.departureDate = "You must choose a departure date!";
+        errors.departureDate = "Please choose a departure date!";
     }
 
     if (!input.returnDate) {
-        errors.returnDate = "You must choose a return date!";
+        errors.returnDate = "Please choose a return date!";
     }
 
     return Object.keys(errors).length === 0 ? null : errors;

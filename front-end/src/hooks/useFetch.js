@@ -24,6 +24,7 @@ function useFetch(collection, pageIndex, pageSize) {
 
                 case 'bookings':
                     setTotalCount(json.totalCount);
+                    json.list.length === 0 && setIsEnd(true);
 
                     pageIndex === 0
                         ? setData(json.list)

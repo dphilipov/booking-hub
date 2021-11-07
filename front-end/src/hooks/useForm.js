@@ -10,6 +10,7 @@ function useForm(validate) {
     const currentDate = date.toISOString().slice(0, 10);
 
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
     const [formErrors, setFormErrors] = useState(null);
     const [formValue, setFormValue] = useState({
         firstName: '',
@@ -64,9 +65,7 @@ function useForm(validate) {
             const json = await response.json();
 
             if (response.ok) {
-                console.log(json); // TO DO: add notification
-                clearInputs();
-                setFormErrors(null);
+                setIsSuccess(true);
             } else {
                 Promise.reject(json);
             }
@@ -74,17 +73,21 @@ function useForm(validate) {
         } catch (err) {
             console.log(err);
         } finally {
-            setIsSubmitting(false);
+            resetForm();
         }
     }
 
-    const clearInputs = () => {
+    const resetForm = () => {
+        setFormErrors(null);
+        setIsSubmitting(false);
+        setIsSuccess(false);
+
         setFormValue({
             firstName: '',
             lastName: '',
             departureAirportId: 1,
             arrivalAirportId: 1,
-            departureDate: '',
+            departureDate: currentDate,
             returnDate: '',
         });
 
@@ -94,7 +97,15 @@ function useForm(validate) {
         });
     }
 
-    return { formValue, airportsNames, handleInputChange, handleFormSubmit, isSubmitting, formErrors };
+    return {
+        formValue,
+        airportsNames,
+        handleInputChange,
+        handleFormSubmit,
+        isSubmitting,
+        formErrors,
+        isSuccess
+    };
 }
 
 export default useForm

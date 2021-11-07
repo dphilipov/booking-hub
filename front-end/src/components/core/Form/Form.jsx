@@ -1,6 +1,13 @@
 // React, Hooks
+import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import useForm from '../../../hooks/useForm';
+
+// Context
+import NotificationContext from '../../../context/notificationContext'
+
+// Components
+import Notification from '../../shared/Notification/Notification';
 
 // Services
 import validate from '../../../services/validationServices';
@@ -18,6 +25,7 @@ import { faListOl } from '@fortawesome/free-solid-svg-icons'
 export default function Form({ airportsList }) {
     const date = new Date();
     const currentDate = date.toISOString().slice(0, 10);
+    const NotificationCtxt = useContext(NotificationContext)
 
     const {
         formValue,
@@ -25,8 +33,15 @@ export default function Form({ airportsList }) {
         handleInputChange,
         handleFormSubmit,
         isSubmitting,
-        formErrors
+        formErrors,
+        isSuccess
     } = useForm(validate);
+
+    useEffect(() => {
+        if (isSuccess) {
+            NotificationCtxt.displayMsg('good', 'Booking Created!');
+        }
+    }, [isSuccess])
 
     return (
         <>
@@ -161,6 +176,8 @@ export default function Form({ airportsList }) {
                     <FontAwesomeIcon icon={faListOl} className={styles.listOl} />
                 </button>
             </Link>
+
+            {NotificationCtxt.isDisplayed && <Notification type={NotificationCtxt.type} msg={NotificationCtxt.msg}></Notification>}
         </>
     )
 }

@@ -1,5 +1,11 @@
 // React, Hooks
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+
+// Context
+import NotificationContext from '../../../context/notificationContext'
+
+// Components
+import Notification from '../../shared/Notification/Notification';
 
 // Services
 import fetchServices from '../../../services/fetchServices';
@@ -15,6 +21,7 @@ function Booking({ bookingNumber, bookingInfo, airportsList, onDelete }) {
     const [currentDepartureAirport, setCurrentDepartureAirport] = useState({});
     const [currentDestinationAirport, setCurrentDestinationAirport] = useState({});
 
+    const NotificationCtxt = useContext(NotificationContext)
 
     const deleteBooking = async () => {
         try {
@@ -24,7 +31,7 @@ function Booking({ bookingNumber, bookingInfo, airportsList, onDelete }) {
             if (response.ok) {
                 json = await response.json();
                 onDelete();
-                console.log(json); // TO DO: add notification
+                NotificationCtxt.displayMsg('good', 'Booking deleted!')
             } else {
                 Promise.reject(json);
             }
@@ -76,6 +83,9 @@ function Booking({ bookingNumber, bookingInfo, airportsList, onDelete }) {
                 </div>
 
             </div>
+
+            {NotificationCtxt.isDisplayed && <Notification type={NotificationCtxt.type} msg={NotificationCtxt.msg}></Notification>}
+
         </>
     )
 }

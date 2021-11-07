@@ -9,8 +9,9 @@ import NotificationContext from '../../../context/notificationContext'
 // Components
 import Notification from '../../shared/Notification/Notification';
 
-// Services
+// Services & Helpers
 import validate from '../../../services/validationServices';
+import getCurrentDate from '../../../helpers/parseDate';
 
 // CSS
 import styles from './Form.module.css';
@@ -23,8 +24,8 @@ import { faListOl } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function Form({ airportsList }) {
-    const date = new Date();
-    const currentDate = date.toISOString().slice(0, 10);
+    const currentDate = getCurrentDate();
+
     const NotificationCtxt = useContext(NotificationContext)
 
     const {

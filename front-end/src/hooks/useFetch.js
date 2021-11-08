@@ -15,20 +15,20 @@ function useFetch(collection, pageIndex, pageSize) {
         setIsLoading(true);
 
         try {
-            const json = await fetchServices.getData(collection, pageIndex, pageSize);
+            const fetchedData = await fetchServices.getData(collection, pageIndex, pageSize);
 
             switch (collection) {
                 case 'airports':
-                    setData(json);
+                    setData(fetchedData);
                     break;
 
                 case 'bookings':
-                    setTotalCount(json.totalCount);
-                    json.list.length === 0 && setIsEnd(true);
+                    setTotalCount(fetchedData.totalCount);
+                    fetchedData.list.length === 0 && setIsEnd(true);
 
                     pageIndex === 0
-                        ? setData(json.list)
-                        : setData(prevState => [...prevState, ...json.list])
+                        ? setData(fetchedData.list)
+                        : setData(prevState => [...prevState, ...fetchedData.list])
 
                     break;
 

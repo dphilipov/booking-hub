@@ -6,17 +6,24 @@ import fetchServices from '../services/fetchServices';
 import getCurrentDate from '../helpers/parseDate';
 
 function useForm(validate) {
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isSuccess, setIsSuccess] = useState(false);
-    const [formErrors, setFormErrors] = useState(null);
-    const [formValue, setFormValue] = useState({
+    const initialFormState = {
         firstName: '',
         lastName: '',
         departureAirportId: 1,
         arrivalAirportId: 1,
         departureDate: getCurrentDate(),
         returnDate: '',
-    });
+    }
+
+    const initialAiportNames = {
+        departureAirport: 'SOF, Sofia Airport',
+        arrivalAirport: 'SOF, Sofia Airport'
+    }
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [formErrors, setFormErrors] = useState(null);
+    const [formValue, setFormValue] = useState(initialFormState);
     const [airportsNames, setAirportsNames] = useState({
         departureAirport: 'SOF, Sofia Airport',
         arrivalAirport: 'SOF, Sofia Airport'
@@ -39,12 +46,15 @@ function useForm(validate) {
                 ...prevState,
                 [id]: value
             }));
-        } else {
-            setFormValue(prevState => ({
-                ...prevState,
-                [name]: value
-            }))
+
+            return;
         }
+
+        setFormValue(prevState => ({
+            ...prevState,
+            [name]: value
+        }))
+
     }
 
     const handleFormSubmit = async (e) => {
@@ -59,12 +69,12 @@ function useForm(validate) {
 
         try {
             const response = await fetchServices.createBooking(formValue);
-            const json = await response.json();
+            const fetchedData = await response.json();
 
             if (response.ok) {
                 setIsSuccess(true);
             } else {
-                Promise.reject(json);
+                Promise.reject(fetchedData);
             }
 
         } catch (err) {
@@ -79,19 +89,9 @@ function useForm(validate) {
         setIsSubmitting(false);
         setIsSuccess(false);
 
-        setFormValue({
-            firstName: '',
-            lastName: '',
-            departureAirportId: 1,
-            arrivalAirportId: 1,
-            departureDate: getCurrentDate(),
-            returnDate: '',
-        });
+        setFormValue(initialFormState);
 
-        setAirportsNames({
-            departureAirport: 'SOF, Sofia Airport',
-            arrivalAirport: 'SOF, Sofia Airport'
-        });
+        setAirportsNames(initialAiportNames);
     }
 
     return {

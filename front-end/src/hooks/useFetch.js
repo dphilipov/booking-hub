@@ -23,7 +23,8 @@ function useFetch(collection, pageIndex, pageSize) {
                     break;
 
                 case 'bookings':
-                    setTotalCount(fetchedData.totalCount);
+                    setTotalCount(fetchedData.totalCount || 0);
+
                     fetchedData.list.length === 0 && setIsEnd(true);
 
                     pageIndex === 0
@@ -36,7 +37,7 @@ function useFetch(collection, pageIndex, pageSize) {
                     break;
             }
         } catch (err) {
-            setError(err);
+            setError(err.message);
         } finally {
             setIsLoading(false);
         }

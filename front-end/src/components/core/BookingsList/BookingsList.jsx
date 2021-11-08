@@ -37,7 +37,7 @@ function BookingsList({ airportsList }) {
         })
 
         if (node) observer.current.observe(node);
-    }, [isLoading, isEnd]);
+    }, [isLoading, isEnd, error]);
 
     const goToTop = () => {
         window.scrollTo({

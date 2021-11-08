@@ -14,17 +14,19 @@ export const NotificationContextProvider = ({ children }) => {
     const [type, setType] = useState('');
     const [isDisplayed, setIsDisplayed] = useState(false);
 
+    let timer;
+
     const displayHandler = (type, msg) => {
         setType(type);
         setMsg(msg);
         setIsDisplayed(true);
-        const timer = setTimeout(() => {
+        timer = setTimeout(() => {
             closeHandler();
-            clearTimeout(timer);
-        }, 5000); // close snackbar after 5 seconds
+        }, 3000); // close snackbar after 5 seconds
     };
 
     const closeHandler = () => {
+        clearTimeout(timer);
         setIsDisplayed(false);
     };
 

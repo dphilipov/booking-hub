@@ -6,8 +6,8 @@
     border-radius: 5px;
     color: #fff;
     padding: 10px 20px;
-    -webkit-animation: fadeinout 5s linear forwards;
-    animation: fadeinout 5s linear forwards;
+    -webkit-animation: fadeinout 3s linear forwards;
+    animation: fadeinout 3s linear forwards;
     display: flex;
     align-items: center;
 }

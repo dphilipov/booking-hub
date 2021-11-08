@@ -1,10 +1,14 @@
 // React, Hooks
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import useFetch from '../../../hooks/useFetch';
 
+// Context
+import NotificationContext from '../../../context/notificationContext'
+
 // Components
 import Booking from '../../shared/Booking/Booking';
+import Notification from '../../shared/Notification/Notification';
 
 //CSS
 import styles from './BookingsList.module.css';
@@ -19,13 +23,15 @@ function BookingsList({ airportsList }) {
     const [pageSize, setPageSize] = useState(5);
     const { data: bookingsList, isEnd, isLoading, error } = useFetch('bookings', pageIndex, pageSize);
 
+    const NotificationCtxt = useContext(NotificationContext)
+
     const observer = useRef();
     const triggerShowMoreOnScrollElement = useCallback((node) => {
         if (isLoading) return;
         if (observer.current) observer.current.disconnect();
 
         observer.current = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting && !isEnd) {
+            if (entries[0].isIntersecting && !isEnd && !error) {
                 setPageIndex(prevPageIndex => prevPageIndex + 1);
             }
         })
@@ -43,6 +49,7 @@ function BookingsList({ airportsList }) {
     const onDelete = () => {
         setPageIndex(prevPageIndex => 0);
         setPageSize(prevPageSize => bookingsList.length - 1);
+        NotificationCtxt.displayMsg('good', 'Booking deleted!')
     }
 
     return (
@@ -70,6 +77,7 @@ function BookingsList({ airportsList }) {
             }
 
             {isLoading && <FontAwesomeIcon icon={faSpinner} className={styles.spinner} spin />}
+            {NotificationCtxt.isDisplayed && <Notification type={NotificationCtxt.type} msg={NotificationCtxt.msg}></Notification>}
 
             <FontAwesomeIcon onClick={goToTop} className={styles.goUpBtn} icon={faArrowCircleUp}></FontAwesomeIcon>
         </>

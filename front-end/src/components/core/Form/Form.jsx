@@ -42,7 +42,7 @@ export default function Form({ airportsList }) {
         if (isSuccess) {
             NotificationCtxt.displayMsg('good', 'Booking Created!');
         }
-    }, [isSuccess])
+    }, [NotificationCtxt, isSuccess])
 
     return (
         <>

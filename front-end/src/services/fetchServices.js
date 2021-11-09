@@ -11,6 +11,7 @@ async function getData(collection, pageIndex, pageSize) {
         }
     } catch (err) {
         console.log(err);
+        return [];
     }
 }
 

@@ -10,7 +10,7 @@ async function getData(collection, pageIndex, pageSize) {
             Promise.reject('This collection does not exist');
         }
     } catch (err) {
-        return err;
+        console.log(err);
     }
 }
 

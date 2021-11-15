@@ -25,7 +25,7 @@ import { faListOl } from '@fortawesome/free-solid-svg-icons'
 
 export default function Form({ airportsList }) {
     const currentDate = getCurrentDate();
-
+    
     const NotificationCtxt = useContext(NotificationContext)
 
     const {

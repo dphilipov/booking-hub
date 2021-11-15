@@ -58,11 +58,11 @@ BookingHub allows you to create plane travel bookings via filling a form with th
 ## Key Features
 
 The project comprises of two parts:
-#### Back-end:
+#### [Back-end:](https://github.com/dphilipov/booking-hub/tree/main/rest-api)
 * A **Node.js/Express server** provides the endpoints. _/airports_ can only be read, while _/bookings_ allow reading, creating and deleting
 * The API uses **MongoDB** where the data is stored in separate collections   
 
-#### Front-end:
+#### [Front-end:](https://github.com/dphilipov/booking-hub/tree/main/front-end)
 * The front-end allows for the creation of new bookings via a **controlled form** after the **validations** are passed
 * All bookings can be scrolled through with **infinite scrolling**
 * Any booking can be deleted upon which the updated list is refetched & rerendered

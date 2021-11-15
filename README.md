@@ -36,6 +36,7 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
@@ -72,6 +73,10 @@ The back-end for the [Live Demo](https://bookings-hub.web.app) is hosted using [
 
 <!-- GETTING STARTED -->
 ## Getting Started
+
+### Prerequisites
+
+You need to have [MongoDB](https://www.mongodb.com/) installed locally.
 
 ### Installation
 

@@ -82,7 +82,7 @@ git clone https://github.com/dphilipov/booking-hub
 #### For the back-end:
 1. cd into the folder
 ```sh
-cd rest-api/
+cd booking-hub/rest-api/
 ```
 2. Install NPM packages
 ```sh
@@ -101,7 +101,7 @@ Database connected
 #### For the front-end:
 1. cd into the folder
 ```sh
-cd front-end/
+cd booking-hub/front-end/
 ```
 2. Install NPM packages
 ```sh

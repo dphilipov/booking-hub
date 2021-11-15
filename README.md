@@ -7,7 +7,7 @@
   <h3 align="center">Booking Hub</h3>
 
   <p align="center">
-    A React small app that allows you to create, delete & view travel bookings that uses infinite scroll
+    A small React app that allows you to create, delete & view travel bookings that uses infinite scroll
     <br />
     <br />
     <img width ='46px' src ='https://github.com/rahulbanerjee26/githubProfileReadmeGenerator/blob/main/icons/nodejs.svg'>
